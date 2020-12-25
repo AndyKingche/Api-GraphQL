@@ -1,0 +1,16 @@
+
+type Course{
+    _id: ID!
+    title: String!
+    teacher: String!
+    descripcion: String!
+    topic: String
+}
+
+type Query{
+    "Devuelve todos los cursos"
+    getCourses:[Course]
+
+    "Devuelve un solo curso, el que ud defina"
+    getCourse(_id:ID!):Course
+}
