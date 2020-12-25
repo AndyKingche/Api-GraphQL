@@ -12,5 +12,5 @@ type Query{
     getCourses:[Course]
 
     "Devuelve un solo curso, el que ud defina"
-    getCourse(_id:ID!):Course
+    getCourse(id:ID!):Course
 }
