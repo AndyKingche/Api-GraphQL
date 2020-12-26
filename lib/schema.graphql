@@ -1,10 +1,52 @@
 
+type Student{
+    _id: ID!
+    name: String!
+    email:String!
+}
 type Course{
     _id: ID!
     title: String!
     teacher: String!
-    descripcion: String!
+    description: String!
     topic: String
+    student:[Student]
+}
+
+input CourseInput {
+   title: String!
+   teacher: String
+   description: String!
+   topic: String
+}
+input CourseEditInput {
+   title: String
+   teacher: String
+   description: String
+   topic: String
+}
+input StudentInput {
+   _id: ID!
+    name: String!
+    email:String!
+}
+input StudentEditInput {
+   _id: ID
+    name: String
+    email:String
+}
+type Mutation {
+   "Crear un curso"
+       createCourse (input: CourseInput!): Course
+    "Editar un curso"
+       editCourse (id:ID!, input: CourseEditInput!): Course
+    "Crear un student"
+       createStudent (input: CourseInput!): Student
+    "Editar un student"
+       editStudent (id:ID!, input: StudentEditInput!): Student
+
+    "Agrega un persona a un curso"
+        addPeople( courseID: ID!, personID: ID! ): Course
 }
 
 type Query{
@@ -13,4 +55,10 @@ type Query{
 
     "Devuelve un solo curso, el que ud defina"
     getCourse(id:ID!):Course
+
+    "Devuelve todos los estudiantes"
+    getStudents:[Student]
+
+    "Devuelve un solo estudiante, el que ud defina"
+    getStudent(id:ID!):Student
 }
