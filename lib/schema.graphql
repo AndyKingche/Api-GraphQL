@@ -1,8 +1,25 @@
 
-type Student{
-    _id: ID!
+enum Level{
+      principiante
+      intermedio
+      avanzado
+}
+interface Person{
+     _id: ID!
     name: String!
     email:String!
+}
+type Student implements Person{
+    _id: ID!
+    name: String!
+    email: String!
+    avatar: String
+}
+type Monitor implements Person{
+    _id: ID!
+    name: String!
+    email: String!
+    phone: String
 }
 type Course{
     _id: ID!
@@ -11,13 +28,15 @@ type Course{
     description: String!
     topic: String
     student:[Student]
+    level: Level
 }
 
 input CourseInput {
    title: String!
    teacher: String
    description: String!
-   topic: String
+   topic: String,
+   level: Level!
 }
 input CourseEditInput {
    title: String
@@ -25,25 +44,29 @@ input CourseEditInput {
    description: String
    topic: String
 }
-input StudentInput {
-   _id: ID!
+input PersonInput {
+   _id: ID
     name: String!
     email:String!
+    avatar: String
+    phone: String
 }
-input StudentEditInput {
+input PersonEditInput {
    _id: ID
     name: String
     email:String
+    avatar: String
+    phone: String
 }
 type Mutation {
    "Crear un curso"
        createCourse (input: CourseInput!): Course
     "Editar un curso"
        editCourse (id:ID!, input: CourseEditInput!): Course
-    "Crear un student"
-       createStudent (input: CourseInput!): Student
-    "Editar un student"
-       editStudent (id:ID!, input: StudentEditInput!): Student
+    "Crear un persona"
+       createPerson (input: PersonInput!): Person
+    "Editar un Person"
+       editPerson (id:ID!, input: PersonEditInput!): Person
 
     "Agrega un persona a un curso"
         addPeople( courseID: ID!, personID: ID! ): Course
@@ -57,8 +80,8 @@ type Query{
     getCourse(id:ID!):Course
 
     "Devuelve todos los estudiantes"
-    getStudents:[Student]
+    getPeople:[Person]
 
     "Devuelve un solo estudiante, el que ud defina"
-    getStudent(id:ID!):Student
+    getPerson(id:ID!):Person
 }
