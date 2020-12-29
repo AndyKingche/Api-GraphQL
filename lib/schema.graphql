@@ -1,4 +1,5 @@
 
+union GlobalSearch = Course | Student | Monitor
 enum Level{
       principiante
       intermedio
@@ -84,4 +85,7 @@ type Query{
 
     "Devuelve un solo estudiante, el que ud defina"
     getPerson(id:ID!):Person
+
+    "Ejecuta una consulta global"
+    seacrhItems(keywboards: String!) : [GlobalSearch]
 }
